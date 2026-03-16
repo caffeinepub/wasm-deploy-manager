@@ -1,0 +1,129 @@
+@font-face {
+  font-family: "Bricolage Grotesque";
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url("/assets/fonts/BricolageGrotesque.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Satoshi";
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url("/assets/fonts/Satoshi.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Geist Mono";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/assets/fonts/GeistMono.woff2") format("woff2");
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0.07 0.01 130;
+    --foreground: 0.94 0.03 130;
+    --card: 0.1 0.01 130;
+    --card-foreground: 0.94 0.03 130;
+    --popover: 0.12 0.01 130;
+    --popover-foreground: 0.94 0.03 130;
+    --primary: 0.87 0.28 130;
+    --primary-foreground: 0.05 0.01 130;
+    --secondary: 0.15 0.02 130;
+    --secondary-foreground: 0.88 0.03 130;
+    --muted: 0.14 0.01 130;
+    --muted-foreground: 0.52 0.04 130;
+    --accent: 0.87 0.28 130;
+    --accent-foreground: 0.05 0.01 130;
+    --destructive: 0.62 0.22 27;
+    --destructive-foreground: 0.95 0 0;
+    --border: 0.25 0.04 130;
+    --input: 0.16 0.02 130;
+    --ring: 0.87 0.28 130;
+    --radius: 0.25rem;
+    --chart-1: 0.87 0.28 130;
+    --chart-2: 0.75 0.22 160;
+    --chart-3: 0.7 0.2 180;
+    --chart-4: 0.8 0.25 110;
+    --chart-5: 0.6 0.2 30;
+    --sidebar: 0.09 0.01 130;
+    --sidebar-foreground: 0.88 0.03 130;
+    --sidebar-primary: 0.87 0.28 130;
+    --sidebar-primary-foreground: 0.05 0.01 130;
+    --sidebar-accent: 0.15 0.02 130;
+    --sidebar-accent-foreground: 0.88 0.03 130;
+    --sidebar-border: 0.22 0.04 130;
+    --sidebar-ring: 0.87 0.28 130;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    background-image: radial-gradient(
+        ellipse 80% 50% at 50% -20%,
+        oklch(0.87 0.28 130 / 0.08) 0%,
+        transparent 70%
+      ),
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        oklch(0.87 0.28 130 / 0.015) 2px,
+        oklch(0.87 0.28 130 / 0.015) 4px
+      ), linear-gradient(to bottom, oklch(0.07 0.01 130), oklch(0.06 0.01 130));
+    min-height: 100vh;
+  }
+
+  ::selection {
+    background: oklch(0.87 0.28 130 / 0.3);
+    color: oklch(0.05 0.01 130);
+  }
+
+  :focus-visible {
+    outline: 2px solid oklch(var(--ring));
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  .code-area {
+    @apply font-mono text-sm bg-black border border-border rounded-md;
+    background-image: linear-gradient(
+      oklch(0.04 0.01 130),
+      oklch(0.04 0.01 130)
+    );
+  }
+
+  .terminal-cursor::after {
+    content: "_";
+    @apply text-primary animate-pulse;
+  }
+
+  .principal-badge {
+    @apply font-mono text-xs px-2 py-0.5 rounded bg-muted text-primary border border-border truncate max-w-full;
+  }
+
+  .status-ok {
+    @apply text-primary;
+  }
+
+  .status-err {
+    @apply text-destructive;
+  }
+}

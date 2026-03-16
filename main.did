@@ -1,0 +1,52 @@
+type http_request_result = 
+ record {
+   body: blob;
+   headers: vec http_header;
+   status: nat;
+ };
+type http_header = 
+ record {
+   name: text;
+   value: text;
+ };
+type WasmEntry = 
+ record {
+   compiledAt: int;
+   wasm: blob;
+ };
+type UserRole = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type TransformationOutput = 
+ record {
+   body: blob;
+   headers: vec http_header;
+   status: nat;
+ };
+type TransformationInput = 
+ record {
+   context: blob;
+   response: http_request_result;
+ };
+type OpResult = 
+ variant {
+   err: text;
+   ok;
+ };
+service : {
+  _initializeAccessControlWithSecret: (userSecret: text) -> ();
+  addAdmin: ("principal": principal) -> (OpResult);
+  assignCallerUserRole: (user: principal, role: UserRole) -> ();
+  getAdmins: () -> (vec principal) query;
+  getCallerUserRole: () -> (UserRole) query;
+  getOwner: () -> (opt principal) query;
+  getWasm: () -> (opt WasmEntry) query;
+  isAdmin: ("principal": principal) -> (bool) query;
+  isCallerAdmin: () -> (bool) query;
+  removeAdmin: ("principal": principal) -> (OpResult);
+  storeWasm: (wasm: blob) -> (OpResult);
+  transform: (input: TransformationInput) -> (TransformationOutput) query;
+}
